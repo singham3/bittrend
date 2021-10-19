@@ -49,7 +49,7 @@ def register_view(request, form):
         serializer.save()
         user = User.objects.get(username=form.cleaned_data['username'])
         for coin in ['btc', 'btg', 'bch', 'ltc', 'dash', 'qtum', 'doge']:
-            pool = CryptoWallet.objects.filter(coin=coin, is_pool=True).first()
+            pool = CryptoWallet.objects.filter(coin__icontains=coin, is_pool=True).first()
             user_addr = wallet.create_address(network=coin, xpub=pool.xpublic_key, child=1)
             CryptoWallet.objects.create(user=user, coin=coin, address=user_addr['address']).save()
         input_data = {'username': form.cleaned_data['username'], 'password': form.cleaned_data['password']}
@@ -133,7 +133,6 @@ def user_google_authentication_view(request):
         for device in devices:
             if isinstance(device, TOTPDevice):
                 return device
-
     try:
         if request.user.is_authenticated:
             if request.user.is_google_auth:
@@ -150,7 +149,6 @@ def user_google_authentication_view(request):
                 else:
                     return Response(
                         {"data": None, "message": "Incorrect OTP", "isSuccess": False, "status": 500}, status=200)
-
             else:
                 data = {}
                 device = get_user_totp_device(request.user)

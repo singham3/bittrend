@@ -1,0 +1,21 @@
+https://api.bittrend.io/api/v1/account/create/  (POST) --> fields - username, email, password, parent (refer code which is not required field) | send 6 digit otp email for verify email, and JWT token return, and create crypto currencies wallet (btc testnet, doge testnet, ethereum -> Bitcoin Gold, Bitcoin Cash, Litecoin, Dash, QTUM ) via pywallet library
+https://api.bittrend.io/api/v1/account/email/otp/verify/ (POST) --> fields - username_or_email, otp | account register email verification api
+https://api.bittrend.io/api/v1/account/email/otp/resend/ (POST) --> fields - email | resend 6 digit otp to email for account register email verification
+https://api.bittrend.io/api/v1/account/update/ (POST) --> fields - first_name, last_name, date_of_birth ("%d-%m-%Y"), photo (gallery id), mobile | user profile update api, for upload profile image using gallery upload api and using gallery id
+https://api.bittrend.io/api/v1/account/get/ (GET) --> get user`s details
+https://api.bittrend.io/api/v1/account/kyc/update/ (POST) --> fields - name, country, city, address, pincode, document_type, document1 (gallery id), document2 (gallery id), address_proof_type, address_proof1 (gallery id), address_proof2 (gallery id), photo (gallery id) | user kyc update api, for all images using gallery upload api
+https://api.bittrend.io/api/v1/account/two-step-authentication/key/get/ (GET) --> active google authentication key get api, it`s return QR code and key for add into google authenticator app
+https://api.bittrend.io/api/v1/account/two-step-authentication/active/ (POST) --> field - otp_token | after add key into google authenticator app, put otp and activate google authentication for login
+https://api.bittrend.io/api/v1/account/bank-account/create/ (POST) --> fields - iban, ifsc_code, holder_name, branch, account_type, mobile | for add bank account api
+https://api.bittrend.io/api/v1/account/bank-account/get/ (GET) --> get user`s bank details
+https://api.bittrend.io/api/v1/gallery/upload/ (POST) --> field - image | for upload image for every api
+https://api.bittrend.io/api/v1/gallery/bulk/upload/ (POST) --> field - images (array) | for bulk upload image for every api
+https://api.bittrend.io/api/v1/gallery/bulk/get/ (POST) --> field - ids (array) | get bulk image details
+https://api.bittrend.io/api/v1/account/login/ (POST) --> fields - username_or_email, password, otp_token(not required) | user can login with email or username and if google authenticator is active then otp required. and JWT token return
+https://api.bittrend.io/api/v1/user/crypto/wallet/balance/check/<str:coin>/ (GET) --> get user`s crypto wallet balance check api by coin name
+https://api.bittrend.io/api/v1/user/crypto/wallet/transaction/get/<str:coin>/ (POST) --> fields - address, value | for transaction given coin to address using blockcypher tool with their key. blockcypher`s create_unsigned_tx fucntion asks input address, recipient address, coin symbol, value and  blockcypher`s key which is got from blockcypher`s site and it will take 2.8 doge coin fees for transfer
+
+*all apis token required except account create and login api
+token format
+header -
+{"authentication": "Bearer Token"}

@@ -20,9 +20,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/account/', include("account.urls")),
-    path('api/v1/user/crypto/wallet/', include("cryptowallet.urls")),
-
+    path('api/v1/account/', include("BitTrend.account.urls")),
+    path('api/v1/gallery/', include("BitTrend.gallery.urls")),
+    path('api/v1/user/crypto/wallet/', include("BitTrend.cryptowallet.urls")),
+    path('api/v1/user/account/wallet/', include("BitTrend.wallet.urls")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

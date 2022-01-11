@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-__j=tnbyo8yk&17y815^u63p7xlgrs1&7usq@4e4na9g8c_*uo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['35.222.212.178', '*']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -37,12 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'account',
-    'cryptowallet',
-    'corsheaders',
+    'BitTrend.account',
+    'BitTrend.gallery',
+    'BitTrend.wallet',
+    'BitTrend.cryptowallet',
+    # 'corsheaders',
     'phonenumber_field',
     'django_otp',
     'django_otp.plugins.otp_totp',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -54,7 +57,7 @@ MIDDLEWARE = [
     'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'BitTrend.urls'
@@ -62,7 +65,7 @@ ROOT_URLCONF = 'BitTrend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,10 +77,10 @@ TEMPLATES = [
         },
     },
 ]
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    'http://35.222.212.178',
-)
+# CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_WHITELIST = (
+#     'http://35.222.212.178',
+# )
 
 WSGI_APPLICATION = 'BitTrend.wsgi.application'
 
@@ -175,7 +178,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, "static/"),)
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -192,7 +195,7 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Dhaka'
+CELERY_TIMEZONE = 'Asia/Kolkata'
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
@@ -200,3 +203,12 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "srishtip0704@gmail.com"
 EMAIL_HOST_PASSWORD = "mnheiynttxmwgfqf"
+PAYPAL_CLIENT_ID = 'AUjS3pqJwz_LUXTK2J3vHZgyoGxNAd93yLtJcjWuNMJJHt_lh39dXoQgT7zjO0lstpTkuHPwgFMKKd11'
+PAYPAL_SECRET_KEY = "ECkouapkAB86LUEeyaEgY5AqX_0wMsSBBMEDzo6xLKVyY32Ifk_cwwvZWNaAN1DihfGFghFKOAYwqtDz"
+
+
+API_KEY = "d8Ns5dMY12jztxutJRuJE34dydGtLNEXF0YssxhzLoJ4paRBMjJEp7mopjXZAcyU"
+SECRET = "8V4WvN4uFphcg4m1LmxfNPKU0pF2dqbDEsWtjpKKKJcNThsUm0mk1sRLBUqewDGB"
+TEST_API_KEY = "nyexYSiTBRCVM3XXMCD5uqGlcWqYCokE8LOC7by8QjcZCh0GtGitdnEvSH6bAPhj"
+TEST_SECRET = "U6hNOvNhYyQ3ljitFn0x1q2Ip0gjb0NcQysnnaZg4hsE67wVKqy92OqBmstcgh0x"
+

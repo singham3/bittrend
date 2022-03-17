@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 from datetime import timedelta
+from binance.spot import Spot as Client
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,12 +41,15 @@ INSTALLED_APPS = [
     'BitTrend.account',
     'BitTrend.gallery',
     'BitTrend.wallet',
+    'BitTrend.log',
     'BitTrend.cryptowallet',
     # 'corsheaders',
     'phonenumber_field',
     'django_otp',
     'django_otp.plugins.otp_totp',
-    'rest_framework'
+    'rest_framework',
+    'django_celery_results',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -190,12 +194,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+REDIS_URI = 'redis://localhost:6379'
+BROKER_URL = 'redis://localhost:6379/1'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Kolkata'
+CELERY_MAX_TASKS_PER_CHILD = 5
+CELERY_WORKER_CONCURRENCY = 1
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
@@ -211,4 +221,6 @@ API_KEY = "d8Ns5dMY12jztxutJRuJE34dydGtLNEXF0YssxhzLoJ4paRBMjJEp7mopjXZAcyU"
 SECRET = "8V4WvN4uFphcg4m1LmxfNPKU0pF2dqbDEsWtjpKKKJcNThsUm0mk1sRLBUqewDGB"
 TEST_API_KEY = "nyexYSiTBRCVM3XXMCD5uqGlcWqYCokE8LOC7by8QjcZCh0GtGitdnEvSH6bAPhj"
 TEST_SECRET = "U6hNOvNhYyQ3ljitFn0x1q2Ip0gjb0NcQysnnaZg4hsE67wVKqy92OqBmstcgh0x"
+TEST_CLIENT = Client(key=TEST_API_KEY, secret=TEST_SECRET, base_url="https://testnet.binance.vision")
+CLIENT = Client(key=API_KEY, secret=SECRET)
 

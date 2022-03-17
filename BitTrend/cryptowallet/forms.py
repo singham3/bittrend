@@ -33,3 +33,30 @@ class CreateTestOrderForm(forms.Form):
     def clean(self):
         cleaned_data = super(CreateTestOrderForm, self).clean()
         return cleaned_data
+
+
+class CancelTestOrderForm(forms.Form):
+    symbol = forms.CharField(required=True)
+    orderId = forms.IntegerField(required=True)
+
+    class Meta:
+        model = TestCryptoWallet
+        fields = ['symbol', 'orderId']
+
+    def clean(self):
+        cleaned_data = super(CancelTestOrderForm, self).clean()
+        return cleaned_data
+
+
+class CryptoPriceCalculatorForm(forms.Form):
+    type = forms.ChoiceField(choices=type_choices, required=True)
+    quantity = forms.FloatField(required=False)
+    price = forms.FloatField(required=False)
+
+    class Meta:
+        model = TestCryptoWallet
+        fields = ['type', 'quantity', 'price']
+
+    def clean(self):
+        cleaned_data = super(CryptoPriceCalculatorForm, self).clean()
+        return cleaned_data

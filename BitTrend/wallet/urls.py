@@ -8,5 +8,5 @@ urlpatterns = [
     path('test/payment/get/', test_paypal_payment_get_all_view),
     path('test/payment/get/<int:id>/', test_paypal_payment_get_view),
     path('test/payment/get/<str:paymentId>/', test_paypal_payment_get_view),
-    path('wallet/get/', user_wallet_get_view),
+    path('get/', user_wallet_get_view),
 ]

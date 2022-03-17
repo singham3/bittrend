@@ -24,6 +24,7 @@ urlpatterns = [
     path('api/v1/gallery/', include("BitTrend.gallery.urls")),
     path('api/v1/user/crypto/wallet/', include("BitTrend.cryptowallet.urls")),
     path('api/v1/user/account/wallet/', include("BitTrend.wallet.urls")),
+    path('api/v1/user/logs/', include("BitTrend.log.urls")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
